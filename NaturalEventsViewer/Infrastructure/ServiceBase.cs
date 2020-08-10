@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.ExceptionServices;
 
-namespace NaturalEventsViewer2.Infrastructure
+namespace NaturalEventsViewer.Infrastructure
 {
     public abstract class ServiceBase
     {

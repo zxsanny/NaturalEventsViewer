@@ -2,7 +2,7 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace NaturalEventsViewer2.Infrastructure
+namespace NaturalEventsViewer.Infrastructure
 {
     public class Result
     {

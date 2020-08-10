@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NaturalEventsViewer2.Extensions
+namespace NaturalEventsViewer.Extensions
 {
     /// <summary>
     /// Contains methods for adding the HTTPS support by <c>NodeServices</c>.

@@ -1,4 +1,4 @@
-﻿namespace NaturalEventsViewer2.Infrastructure
+﻿namespace NaturalEventsViewer.Infrastructure
 {
     /// <summary>
     /// Represents public session of the web application

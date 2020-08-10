@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using NaturalEventsViewer2.Infrastructure;
+using NaturalEventsViewer.Infrastructure;
 
-namespace NaturalEventsViewer2.Controllers
+namespace NaturalEventsViewer.Controllers
 {
     public class ControllerBase : Controller
     {

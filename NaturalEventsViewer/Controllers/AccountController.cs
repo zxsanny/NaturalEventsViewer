@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using NaturalEventsViewer2.Models;
-using NaturalEventsViewer2.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using NaturalEventsViewer.Models;
+using NaturalEventsViewer.Services;
 
-namespace NaturalEventsViewer2.Controllers
+namespace NaturalEventsViewer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

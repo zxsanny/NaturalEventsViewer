@@ -57,6 +57,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EONETAPI\EONETAPI.csproj" />
+    <ProjectReference Include="..\NaturalEvents.Common\NaturalEvents.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="wwwroot\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

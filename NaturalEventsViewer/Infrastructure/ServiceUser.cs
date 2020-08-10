@@ -1,4 +1,4 @@
-﻿namespace NaturalEventsViewer2.Infrastructure
+﻿namespace NaturalEventsViewer.Infrastructure
 {
     public class ServiceUser
     {

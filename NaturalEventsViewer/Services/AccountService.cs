@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NaturalEventsViewer2.Infrastructure;
+using NaturalEventsViewer.Infrastructure;
 
-namespace NaturalEventsViewer2.Services
+namespace NaturalEventsViewer.Services
 {
     public class AccountService : ServiceBase
     {

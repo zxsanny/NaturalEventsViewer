@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 
-namespace NaturalEventsViewer2.Infrastructure
+namespace NaturalEventsViewer.Infrastructure
 {
     public class ExceptionMiddleware
     {

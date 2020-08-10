@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using NaturalEventsViewer2.Infrastructure;
+using NaturalEventsViewer.Infrastructure;
 
-namespace NaturalEventsViewer2.Controllers
+namespace NaturalEventsViewer.Controllers
 {
     public class MainController : ControllerBase
     {

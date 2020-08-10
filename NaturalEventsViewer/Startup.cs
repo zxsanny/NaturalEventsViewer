@@ -1,16 +1,19 @@
+using EONETAPIImplementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NaturalEventsViewer2.Extensions;
-using NaturalEventsViewer2.Infrastructure;
-using NaturalEventsViewer2.Services;
+using NaturalEvents.Common.Interfaces;
+using NaturalEventsViewer.Extensions;
+using NaturalEventsViewer.Infrastructure;
+using NaturalEventsViewer.Services;
 using Serilog;
 using Serilog.Context;
+using System;
 
-namespace NaturalEventsViewer2
+namespace NaturalEventsViewer
 {
     public class Startup
     {
@@ -43,6 +46,11 @@ namespace NaturalEventsViewer2
             // Add your own services here.
             services.AddScoped<AccountService>();
             services.AddScoped<PersonService>();
+            
+            services.AddHttpClient<IEONETApi, EONETApi>("EONETAPI", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("EONETBaseURL"));
+            }).SetHandlerLifetime(TimeSpan.FromMinutes(10));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

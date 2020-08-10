@@ -1,4 +1,4 @@
-﻿namespace NaturalEventsViewer2
+﻿namespace NaturalEventsViewer
 {
     public class AppSettings
     {

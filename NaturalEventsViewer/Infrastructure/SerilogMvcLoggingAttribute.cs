@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace NaturalEventsViewer2.Infrastructure
+namespace NaturalEventsViewer.Infrastructure
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class SerilogMvcLoggingAttribute : ActionFilterAttribute

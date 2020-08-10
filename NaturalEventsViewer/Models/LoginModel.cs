@@ -1,4 +1,4 @@
-﻿namespace NaturalEventsViewer2.Models
+﻿namespace NaturalEventsViewer.Models
 {
     public class LoginModel
     {

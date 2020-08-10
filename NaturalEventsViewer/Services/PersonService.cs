@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NaturalEventsViewer2.Infrastructure;
-using NaturalEventsViewer2.Models;
+using NaturalEventsViewer.Infrastructure;
+using NaturalEventsViewer.Models;
 
-namespace NaturalEventsViewer2.Services
+namespace NaturalEventsViewer.Services
 {
     public class PersonService : ServiceBase
     {
