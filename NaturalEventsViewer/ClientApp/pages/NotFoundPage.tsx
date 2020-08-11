@@ -7,7 +7,7 @@ type Props = RouteComponentProps<{}>;
 const NotFoundPage: React.FC<Props> = () => {
     return <div>
         <Helmet>
-            <title>Page not found - NaturalEventsViewer2</title>
+            <title>Page not found - NaturalEventsViewer</title>
         </Helmet>
 
         <br />

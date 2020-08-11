@@ -19,11 +19,7 @@ namespace NaturalEventsViewer.Controllers
         }
 
         [HttpGet("events")]
-        public async Task<IReadOnlyList<NaturalEvent>> Get()
-        {
-            var res = await EONETApi.Get();
-            var c = res.FirstOrDefault().Geometries[0].Coordinates;
-            return res;
-        }
+        public async Task<IReadOnlyList<NaturalEvent>> Get() =>
+            await EONETApi.Get();
     }
 }

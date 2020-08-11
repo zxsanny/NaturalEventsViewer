@@ -12,14 +12,14 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_NATURALEVENTS_ENV": "Development"
       }
     },
-    "NaturalEventsViewer2": {
+    "NaturalEventsViewer": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_NATURALEVENTS_ENV": "Development"
       },
       "applicationUrl": "http://localhost:7000;https://localhost:7001"
     },

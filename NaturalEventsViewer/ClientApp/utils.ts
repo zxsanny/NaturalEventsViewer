@@ -1,4 +1,4 @@
-﻿import { IAppThunkActionAsync } from "@Store/index";
+﻿import { AppThunkActionAsync } from "@Store/index";
 import { Dispatch } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -114,7 +114,7 @@ export function clone<T>(object: T): T {
  * Use this to intercept the results of your requests.
  * @param asyncActionCreator
  */
-export function getPromiseFromAction<T, V>(asyncActionCreator: IAppThunkActionAsync<T, V>): Promise<V> {
+export function getPromiseFromAction<T, V>(asyncActionCreator: AppThunkActionAsync<T, V>): Promise<V> {
     return (asyncActionCreator as any) as Promise<V>;
 }
 
@@ -142,6 +142,6 @@ export function isObjectEmpty(obj): boolean {
  * @param limitPerPage entries per page.
  */
 export function paginate<T>(array: T[], pageNumber: number, limitPerPage: number): T[] {
-    let rowOffset = Math.ceil((pageNumber - 1) * limitPerPage);
+    const rowOffset = Math.ceil((pageNumber - 1) * limitPerPage);
     return array.slice(rowOffset, rowOffset + limitPerPage);
 }

@@ -1,6 +1,5 @@
-﻿import TopMenu from "@Components/shared/TopMenu";
-import * as React from "react";
-import "@Styles/authorizedLayout.scss";
+﻿import * as React from "react";
+import "@Styles/mainLayout.scss";
 import { ToastContainer } from "react-toastify";
 import Footer from "@Components/shared/Footer";
 
@@ -10,11 +9,10 @@ interface IProps {
 
 type Props = IProps;
 
-export default class AuthorizedLayout extends React.Component<Props, {}> {
+export default class MainLayout extends React.Component<Props, {}> {
     public render() {
 
-        return <div id="authorizedLayout" className="layout">
-            <TopMenu />
+        return <div id="mainLayout" className="layout">
             {this.props.children}
             <ToastContainer />
             <Footer />

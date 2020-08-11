@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Route, RouteProps, Redirect } from "react-router";
-import SessionManager from "@Core/session";
+import { Route, RouteProps } from "react-router";
 import responseContext from "@Core/responseContext";
 
 export interface IProps extends RouteProps {
@@ -9,19 +8,9 @@ export interface IProps extends RouteProps {
 }
 
 const AppRoute: React.FC<IProps> =
-    ({ component: Component, layout: Layout, statusCode: statusCode, path: Path, ...rest }: IProps) => {
+    ({ component: Component, layout: Layout, statusCode: statusCode, ...rest }: IProps) => {
 
-        var isLoginPath = Path === "/login";
-
-        if (!SessionManager.isAuthenticated && !isLoginPath) {
-            return <Redirect to="/login" />;
-        }
-
-        if (SessionManager.isAuthenticated && isLoginPath) {
-            return <Redirect to="/" />;
-        }
-
-        if (statusCode == null) {
+        if (statusCode === null) {
             responseContext.statusCode = 200;
         } else {
             responseContext.statusCode = statusCode;

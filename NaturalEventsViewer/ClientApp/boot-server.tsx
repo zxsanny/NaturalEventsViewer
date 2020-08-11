@@ -13,10 +13,10 @@ import serializeJavascript from "serialize-javascript";
 import { routes } from "./routes";
 import responseContext from "@Core/responseContext";
 
-var renderHelmet = (): string => {
-    var helmetData = Helmet.renderStatic();
-    var helmetStrings = "";
-    for (var key in helmetData) {
+const renderHelmet = (): string => {
+    const helmetData = Helmet.renderStatic();
+    let helmetStrings = "";
+    for (let key in helmetData) {
         if (helmetData.hasOwnProperty(key)) {
             helmetStrings += helmetData[key].toString();
         }
@@ -24,7 +24,7 @@ var renderHelmet = (): string => {
     return helmetStrings;
 };
 
-var createGlobals = (session: IWebSessionContext, initialReduxState: object, helmetStrings: string) => {
+const createGlobals = (session: IWebSessionContext, initialReduxState: object, helmetStrings: string) => {
     return {
         completedTasks: getCompletedTasks(),
         session,
@@ -39,7 +39,7 @@ var createGlobals = (session: IWebSessionContext, initialReduxState: object, hel
 /**
  * Represents NodeJS params.
  * */
-interface INodeParams {
+interface NodeParams {
     /**
      * Origin url.
      * */
@@ -51,7 +51,7 @@ interface INodeParams {
     domainTasks: Promise<void>;
 }
 
-export default createServerRenderer((params: INodeParams) => {
+export default createServerRenderer((params: NodeParams) => {
 
     SessionManager.resetSession();
     SessionManager.initSession(params.data as IWebSessionContext);
