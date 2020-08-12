@@ -9,6 +9,7 @@ import { paginate } from "@Utils";
 import { Container } from "react-bootstrap";
 import { NaturalEventsOrder, OrderDirection } from "../models/NaturalEvent";
 import DatePicker from "react-datepicker";
+import TripleToggleSwitch from 'react-triple-toggle-switch';
 
 type Props = typeof naturalEventsStore.actionCreators & naturalEventsStore.NaturalEventsStoreState & RouteComponentProps<{}>;
 
@@ -47,12 +48,30 @@ class EventsPage extends React.Component<Props, State> {
         this.paginator.setFirstPage();
     }
 
+    const labels = {
+        left: {
+            title: 'left',
+            value: null
+        },
+        right: {
+            title: 'Show Open Events',
+            value: true
+        },
+        center: {
+            title: 'Show Closed Events',
+            value: false
+        }
+    };
     render() {
         return <Container>
             <Helmet>
                 <title>Earth Observatory Natural Events Tracker Viewer</title>
             </Helmet>
 
+            <TripleToggleSwitch
+                labels={this.labels}
+                onChange={(val) => this.setState({ isOpen: val }, this.onChangeSearch) }
+            />
             <table className="table">
                 <thead>
                     <tr>
@@ -62,8 +81,8 @@ class EventsPage extends React.Component<Props, State> {
                             <div>Categories</div>
                             <div>
                                 <input type="text" className="filter"
-                                    onChange={(input) => { this.setState({ category: input.target.value }, this.onChangeSearch) }
-                                } />
+                                    onChange={ (input) => this.setState({ category: input.target.value }, this.onChangeSearch) }
+                                />
                             </div>
                         </th>
                         <th>Sources</th>
