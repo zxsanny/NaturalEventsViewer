@@ -9,7 +9,6 @@ import { paginate } from "@Utils";
 import { Container } from "react-bootstrap";
 import { NaturalEventsOrder, OrderDirection } from "../models/NaturalEvent";
 import DatePicker from "react-datepicker";
-import TripleToggleSwitch from 'react-triple-toggle-switch';
 
 type Props = typeof naturalEventsStore.actionCreators & naturalEventsStore.NaturalEventsStoreState & RouteComponentProps<{}>;
 
@@ -48,30 +47,26 @@ class EventsPage extends React.Component<Props, State> {
         this.paginator.setFirstPage();
     }
 
-    const labels = {
-        left: {
-            title: 'left',
-            value: null
-        },
-        right: {
-            title: 'Show Open Events',
-            value: true
-        },
-        center: {
-            title: 'Show Closed Events',
-            value: false
-        }
-    };
+    private onOpenCloseSelectorChange = (input) =>
+        this.setState({ isOpen: input.target.value === "" ? null : input.target.value === "true" }, this.onChangeSearch);
+
     render() {
         return <Container>
             <Helmet>
                 <title>Earth Observatory Natural Events Tracker Viewer</title>
             </Helmet>
 
-            <TripleToggleSwitch
-                labels={this.labels}
-                onChange={(val) => this.setState({ isOpen: val }, this.onChangeSearch) }
-            />
+            <div className="open-close-selector">
+                <input type="radio" name="openCloseSelector" value=""
+                    checked={this.state.isOpen === null}
+                    onChange={this.onOpenCloseSelectorChange} />Show all
+                <input type="radio" name="openCloseSelector" value="true"
+                    checked={this.state.isOpen === true}
+                    onChange={this.onOpenCloseSelectorChange} />Show Open Only
+                <input type="radio" name="openCloseSelector" value="false"
+                    checked={this.state.isOpen === false}
+                    onChange={this.onOpenCloseSelectorChange} />Show Closed Only
+            </div>
             <table className="table">
                 <thead>
                     <tr>
@@ -109,9 +104,7 @@ class EventsPage extends React.Component<Props, State> {
                                     <td>{event.categories.map(c => c.title).join(', ')}</td>
                                     <td>{event.sources.map(s => <a key={s.id} className="source-event" href={s.url}>{s.id}</a>)}</td>
                                     <td>{event.geometries.map(c =>
-                                        <div key={c.coordinates.toString()}>
-                                            {c.coordinates}
-                                            {c.date}
+                                        <div key={`${event.Id} ${c.date.toString()}`}>
                                         </div>
                                     )}
                                     </td>
