@@ -1,12 +1,11 @@
 import Result from "@Core/Result";
 import { ServiceBase } from "@Core/ServiceBase";
-import { NaturalEvent, NaturalEventsOrder } from "../models/NaturalEvent";
+import { NaturalEvent, NaturalEventsOrder, OrderDirection } from "../models/NaturalEvent";
+import moment from "moment";
 
 export default class NaturalEventsService extends ServiceBase {
-    public async search(orderBy?: NaturalEventsOrder, date?: Date, isOpen?: boolean, category?: string): Promise<Result<NaturalEvent[]>> {
-        return await this.requestJson<NaturalEvent[]>({
-            url: `/EONET/events?orderBy=${orderBy || ''}&date=${date || ''}&isOpen=${isOpen || ''}&category=${category || ''}`,
-            method: "GET"
-        });
+    public async search(orderBy?: NaturalEventsOrder, orderDirection?: OrderDirection, date?: Date, isOpen?: boolean, category?: string): Promise<Result<NaturalEvent[]>> {
+        const url = `/EONET/events?orderBy=${orderBy || ''}&orderDirection=${orderDirection || ''}&date=${date ? moment(date).format('YYYY-MM-DD') : ''}&isOpen=${isOpen || ''}&category=${category || ''}`;
+        return await this.requestJson<NaturalEvent[]>({url: url, method: "GET" });
     }
 }

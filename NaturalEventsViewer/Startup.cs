@@ -70,18 +70,18 @@ namespace NaturalEventsViewer
                 }
             });
 
-            // Build your own authorization system or use Identity.
-            app.Use(async (context, next) =>
-            {
-                var accountService = (AccountService)context.RequestServices.GetService(typeof(AccountService));
-                var verifyResult = accountService.Verify(context);
-                if (!verifyResult.HasErrors)
-                {
-                    context.Items.Add(Constants.HttpContextServiceUserItemKey, verifyResult.Value);
-                }
-                await next.Invoke();
-                // Do logging or other work that doesn't write to the Response.
-            });
+            //// Build your own authorization system or use Identity.
+            //app.Use(async (context, next) =>
+            //{
+            //    var accountService = (AccountService)context.RequestServices.GetService(typeof(AccountService));
+            //    var verifyResult = accountService.Verify(context);
+            //    if (!verifyResult.HasErrors)
+            //    {
+            //        context.Items.Add(Constants.HttpContextServiceUserItemKey, verifyResult.Value);
+            //    }
+            //    await next.Invoke();
+            //    // Do logging or other work that doesn't write to the Response.
+            //});
 
             if (env.IsDevelopment())
             {

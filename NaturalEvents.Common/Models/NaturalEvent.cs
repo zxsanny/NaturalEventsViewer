@@ -25,7 +25,12 @@ namespace NaturalEvents.Common.Models
         public List<NaturalEvent> Events { get; set; }
     }
 
-    
+    public enum OrderDirection
+    {
+        ASC = 0,
+        DESC = 1
+    }
+
     public enum NaturalEventsOrder
     {
         Date = 0,

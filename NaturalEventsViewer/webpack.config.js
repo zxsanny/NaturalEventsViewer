@@ -17,7 +17,7 @@ module.exports = (env) => {
 
         var mode = isDevBuild ? "development" : "production";
 
-        console.log('\x1b[36m%s\x1b[0m', "=== Webpack compilation mode: " + mode + " ===");
+        console.log("=== Webpack compilation mode: " + mode + " ===");
 
         var config = {
             mode,

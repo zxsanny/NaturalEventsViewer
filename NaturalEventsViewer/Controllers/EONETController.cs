@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NaturalEvents.Common.Interfaces;
 using NaturalEvents.Common.Models;
 using NaturalEvents.Repostitory;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NaturalEventsViewer.Controllers
@@ -21,9 +19,10 @@ namespace NaturalEventsViewer.Controllers
         }
 
         [HttpGet("events")]
-        public async Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventsOrder? orderBy, DateTime? date, bool? isOpen, string category)
+        public async Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventsOrder? orderBy, OrderDirection? orderDirection, DateTime? date, bool? isOpen, string category)
         {
-            var res = await EONETRepository.Get(orderBy, date, isOpen, category, null, null, null);
+            var res = await EONETRepository.Get(orderBy, orderDirection, date, isOpen, category, null, null, null);
+            EONETRepository.SaveEvents(res);
             return res;
         }
             

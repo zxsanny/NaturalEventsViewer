@@ -46,3 +46,14 @@ label {
         color: #fff;
     }
 }
+
+.table {
+    tr.disabled {
+        background-color: dimgray;
+    }
+    .source-event {
+        background-color: lightgray;
+        margin: 5px;
+        padding: 5px;
+    }
+}

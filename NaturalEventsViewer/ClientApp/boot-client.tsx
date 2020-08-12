@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@Styles/main.scss";
 import "@Styles/loaders/queryLoader.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Other imports.
 import * as React from "react";

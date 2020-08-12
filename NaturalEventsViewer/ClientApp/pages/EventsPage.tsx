@@ -5,15 +5,16 @@ import { RouteComponentProps, withRouter } from "react-router";
 import * as naturalEventsStore from "@Store/naturalEventStore";
 import { withStore } from "@Store/index";
 import Paginator from "@Components/shared/Paginator";
-import AwesomeDebouncePromise from "awesome-debounce-promise";
 import { paginate } from "@Utils";
-import { Container, Row, Card } from "react-bootstrap";
-import { NaturalEventsOrder } from "../models/NaturalEvent";
+import { Container } from "react-bootstrap";
+import { NaturalEventsOrder, OrderDirection } from "../models/NaturalEvent";
+import DatePicker from "react-datepicker";
 
 type Props = typeof naturalEventsStore.actionCreators & naturalEventsStore.NaturalEventsStoreState & RouteComponentProps<{}>;
 
 interface State {
     orderBy?: NaturalEventsOrder;
+    orderDirection?: OrderDirection;
     date?: Date;
     isOpen?: boolean;
     category?: string;
@@ -30,60 +31,72 @@ class EventsPage extends React.Component<Props, State> {
 
         this.state = {
             orderBy: NaturalEventsOrder.Date,
+            orderDirection: OrderDirection.ASC,
             date: null,
             isOpen: null,
             category: null,
             currentPageNum: 1,
-            limitPerPage: 5,
+            limitPerPage: 20,
         };
 
         this.props.search();
     }
 
-    private onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        AwesomeDebouncePromise(() => {
-            this.props.search(this.state.orderBy, this.state.date, this.state.isOpen, this.state.category);
-        }, 500);
+    private onChangeSearch = () => {
+        this.props.search(this.state.orderBy, this.state.orderDirection, this.state.date, this.state.isOpen, this.state.category);
         this.paginator.setFirstPage();
     }
 
     render() {
-
         return <Container>
             <Helmet>
                 <title>Earth Observatory Natural Events Tracker Viewer</title>
             </Helmet>
-
-            <Card body className="mt-4 mb-4">
-                <Row>
-                    <div className="col-9 col-sm-10 col-md-10 col-lg-11">
-                        <input
-                            type="text"
-                            className="form-control"
-                            defaultValue={""}
-                            onChange={this.onChangeSearchInput}
-                            placeholder={"Search for events..."}
-                        />
-                    </div>
-                </Row>
-            </Card>
 
             <table className="table">
                 <thead>
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Link</th>
-
+                        <th>
+                            <div>Categories</div>
+                            <div>
+                                <input type="text" className="filter"
+                                    onChange={(input) => { this.setState({ category: input.target.value }, this.onChangeSearch) }
+                                } />
+                            </div>
+                        </th>
+                        <th>Sources</th>
+                        <th>
+                            <div>Coordinates</div>
+                            <div>
+                                <DatePicker
+                                    selected={ this.state.date }
+                                    onChange={(input) => this.setState({ date: input }, this.onChangeSearch)}
+                                />
+                            </div>
+                        </th>
+                        <th>
+                            Closed date
+                        </th>
                     </tr>
                 </thead>
                 <tbody> {
                     paginate(this.props.collection, this.state.currentPageNum, this.state.limitPerPage)
                             .map(event =>
-                                <tr key={event.id}>
-                                    <td>{event.title}</td>
+                                <tr className={event.closed ? "disabled" : ""} key={event.id}>
+                                    <td><a href={event.link}>{event.title}</a></td>
                                     <td>{event.description}</td>
-                                    
+                                    <td>{event.categories.map(c => c.title).join(', ')}</td>
+                                    <td>{event.sources.map(s => <a key={s.id} className="source-event" href={s.url}>{s.id}</a>)}</td>
+                                    <td>{event.geometries.map(c =>
+                                        <div key={c.coordinates.toString()}>
+                                            {c.coordinates}
+                                            {c.date}
+                                        </div>
+                                    )}
+                                    </td>
+                                    <td>{!event.closed ? 'Open now' : event.closed}</td>
                                 </tr>
                 )}
                 </tbody>

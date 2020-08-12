@@ -1,7 +1,6 @@
 ﻿import * as React from "react";
 import "@Styles/mainLayout.scss";
 import { ToastContainer } from "react-toastify";
-import Footer from "@Components/shared/Footer";
 
 interface IProps {
     children?: React.ReactNode;
@@ -15,7 +14,6 @@ export default class MainLayout extends React.Component<Props, {}> {
         return <div id="mainLayout" className="layout">
             {this.props.children}
             <ToastContainer />
-            <Footer />
         </div>;
     }
 }

@@ -13,6 +13,6 @@ namespace NaturalEvents.Common.Models
     {
         public DateTime Date { get; set; }
         public GeometryType Type { get; set; }
-        public dynamic Coordinates { get; set; }
+        public object Coordinates { get; set; }
     }
 }

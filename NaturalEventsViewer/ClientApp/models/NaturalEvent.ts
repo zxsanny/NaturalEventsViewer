@@ -10,7 +10,7 @@ interface NaturalEventCatecory {
 
 interface NaturalEventSource {
     id: string;
-    url: URL;
+    url: string;
 }
 
 interface NaturalEventGeometry {
@@ -25,11 +25,16 @@ export enum NaturalEventsOrder {
     Category = 2
 }
 
+export enum OrderDirection {
+    ASC = 0,
+    DESC = 1
+}
+
 export interface NaturalEvent {
     id: string;
     title: string;
     description: string;
-    link: URL;
+    link: string;
     closed: Date | null;
     categories: NaturalEventCatecory[];
     sources: NaturalEventSource[];
