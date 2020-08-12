@@ -19,6 +19,12 @@ interface NaturalEventGeometry {
     coordinates: object; 
 }
 
+export enum NaturalEventsOrder {
+    Date = 0,
+    Status = 1,
+    Category = 2
+}
+
 export interface NaturalEvent {
     id: string;
     title: string;

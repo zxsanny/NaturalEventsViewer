@@ -8,12 +8,15 @@ import Paginator from "@Components/shared/Paginator";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import { paginate } from "@Utils";
 import { Container, Row, Card } from "react-bootstrap";
-import { wait } from "domain-wait";
+import { NaturalEventsOrder } from "../models/NaturalEvent";
 
 type Props = typeof naturalEventsStore.actionCreators & naturalEventsStore.NaturalEventsStoreState & RouteComponentProps<{}>;
 
 interface State {
-    searchTerm: string;
+    orderBy?: NaturalEventsOrder;
+    date?: Date;
+    isOpen?: boolean;
+    category?: string;
     currentPageNum: number;
     limitPerPage: number;
 }
@@ -22,28 +25,25 @@ class EventsPage extends React.Component<Props, State> {
 
     private paginator: Paginator;
 
-    private debouncedSearch: (term: string) => void;
-
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            searchTerm: "",
+            orderBy: NaturalEventsOrder.Date,
+            date: null,
+            isOpen: null,
+            category: null,
             currentPageNum: 1,
             limitPerPage: 5,
         };
 
-        this.debouncedSearch = AwesomeDebouncePromise((term: string) => {
-            props.search(term);
-        }, 500);
-
-        wait(async () => {
-            await this.props.search();
-        }, "examplesPageTask");        
+        this.props.search();
     }
 
     private onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.debouncedSearch(e.currentTarget.value);
+        AwesomeDebouncePromise(() => {
+            this.props.search(this.state.orderBy, this.state.date, this.state.isOpen, this.state.category);
+        }, 500);
         this.paginator.setFirstPage();
     }
 
@@ -71,10 +71,10 @@ class EventsPage extends React.Component<Props, State> {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Link</th>
+
                     </tr>
                 </thead>
                 <tbody> {
@@ -83,7 +83,7 @@ class EventsPage extends React.Component<Props, State> {
                                 <tr key={event.id}>
                                     <td>{event.title}</td>
                                     <td>{event.description}</td>
-                                    <td>{event.link}</td>
+                                    
                                 </tr>
                 )}
                 </tbody>

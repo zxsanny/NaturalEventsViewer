@@ -1,6 +1,6 @@
 ﻿import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { NaturalEvent } from '@Models/NaturalEvent';
-import NaturalEventsService from '@Services/NaturalEventsService';
+import { NaturalEvent, NaturalEventsOrder } from '@Models/NaturalEvent';
+import NaturalEventsService from '@Services/naturalEventsService';
 
 // Declare an interface of the store's state.
 export interface NaturalEventsStoreState {
@@ -30,14 +30,13 @@ export const { reducer } = slice;
 
 // Define action creators.
 export const actionCreators = {
-    search: (term?: string) => async (dispatch: Dispatch) => {
+    search: (orderBy: NaturalEventsOrder = null, date: Date = null, isOpen: boolean = null, category: string = null) => async (dispatch: Dispatch) => {
         dispatch(slice.actions.setFetching(true));
 
         const service = new NaturalEventsService();
+        const result = await service.search(orderBy, date, isOpen, category);
 
-        const result = await service.search(term);
-
-        if (!result.hasErrors) {
+        if (result.error) {
             dispatch(slice.actions.setData(result.value));
         }
 

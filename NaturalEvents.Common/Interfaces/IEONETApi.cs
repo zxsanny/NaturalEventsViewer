@@ -6,6 +6,6 @@ namespace NaturalEvents.Common.Interfaces
 {
     public interface IEONETApi
     {
-        Task<IReadOnlyList<NaturalEvent>> Get(List<string> sources = null, bool? isOpen = null, int? limit = null, int? daysLimit = null);
+        Task<IEnumerable<NaturalEvent>> Get(List<string> sources, bool? isOpen, int? limit, int? daysLimit);
     }
 }

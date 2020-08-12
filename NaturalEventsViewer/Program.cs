@@ -10,7 +10,7 @@ namespace NaturalEventsViewer
     public class Program
     {
         public static string EnvironmentName =>
-            Environment.GetEnvironmentVariable("ASPNETCORE_NATURALEVENTS_ENV") ?? "Production";
+            Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 
         public static void Main(string[] args)
         {

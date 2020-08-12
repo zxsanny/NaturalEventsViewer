@@ -28,19 +28,19 @@ export abstract class ServiceBase {
      */
     public async requestJson<T>(opts: IRequestOptions): Promise<Result<T>> {
 
-        var axiosResult = null;
-        var result = null;
+        let axiosResult = null;
+        let result = null;
 
         opts.url = transformUrl(opts.url); // Allow requests also for the Node.
 
-        var processQuery = (url: string, data: any): string => {
+        const processQuery = (url: string, data: any): string => {
             if (data) {
                 return `${url}?${queryString.stringify(data)}`;
             }
             return url;
         };
 
-        var axiosRequestConfig : AxiosRequestConfig;
+        let axiosRequestConfig : AxiosRequestConfig;
 
         if (isNode()) {
 
@@ -73,12 +73,12 @@ export abstract class ServiceBase {
                     axiosResult = await Axios.delete(processQuery(opts.url, opts.data), axiosRequestConfig);
                     break;
             }
-            result = new Result(axiosResult.data.value, ...axiosResult.data.errors);
+            result = new Result(axiosResult.data, axiosResult.data.error);
         } catch (error) {
             result = new Result(null, error.message);
         }
 
-        if (result.hasErrors) {
+        if (result.error) {
             showErrors(...result.errors);
         }
 
@@ -95,7 +95,7 @@ export abstract class ServiceBase {
 
         opts.url = transformUrl(opts.url); // Allow requests also for Node.
 
-        var axiosOpts = {
+        const axiosOpts = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -113,13 +113,13 @@ export abstract class ServiceBase {
                     axiosResult = await Axios.patch(opts.url, opts.data, axiosOpts);
                     break;
             }
-            result = new Result(axiosResult.data.value, ...axiosResult.data.errors);
+            result = new Result(axiosResult.data.value, axiosResult.data.error);
         } catch (error) {
             result = new Result(null, error.message);
         }
 
-        if (result.hasErrors) {
-            showErrors(...result.errors);
+        if (result.error) {
+            showErrors(result.error);
         }
 
         return result;

@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LazyCache.AspNetCore" Version="2.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
@@ -57,7 +58,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EONETAPI\EONETAPI.csproj" />
+    <ProjectReference Include="..\EONETAPI\NaturalEvents.EONETAPI.csproj" />
+    <ProjectReference Include="..\NaturalEvent.Repostitory\NaturalEvents.Repostitory.csproj" />
     <ProjectReference Include="..\NaturalEvents.Common\NaturalEvents.Common.csproj" />
   </ItemGroup>
 

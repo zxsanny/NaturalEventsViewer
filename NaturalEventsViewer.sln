@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaturalEventsViewer", "NaturalEventsViewer\NaturalEventsViewer.csproj", "{366EA40E-A883-40A6-9063-DC848D5C4F24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaturalEvents.Web", "NaturalEventsViewer\NaturalEvents.Web.csproj", "{366EA40E-A883-40A6-9063-DC848D5C4F24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalEvents.Common", "NaturalEvents.Common\NaturalEvents.Common.csproj", "{6B419D90-755B-44D8-B77D-203151DA97F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaturalEvents.Common", "NaturalEvents.Common\NaturalEvents.Common.csproj", "{6B419D90-755B-44D8-B77D-203151DA97F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EONETAPI", "EONETAPI\EONETAPI.csproj", "{E6C42F03-B5FA-42EC-8812-B0229DA0CC53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaturalEvents.EONETAPI", "EONETAPI\NaturalEvents.EONETAPI.csproj", "{E6C42F03-B5FA-42EC-8812-B0229DA0CC53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalEvents.Repostitory", "NaturalEvent.Repostitory\NaturalEvents.Repostitory.csproj", "{6052C293-2685-48C0-8942-BF6687F52F42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E6C42F03-B5FA-42EC-8812-B0229DA0CC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6C42F03-B5FA-42EC-8812-B0229DA0CC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6C42F03-B5FA-42EC-8812-B0229DA0CC53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6052C293-2685-48C0-8942-BF6687F52F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6052C293-2685-48C0-8942-BF6687F52F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6052C293-2685-48C0-8942-BF6687F52F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6052C293-2685-48C0-8942-BF6687F52F42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

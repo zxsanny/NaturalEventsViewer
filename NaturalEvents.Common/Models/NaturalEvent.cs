@@ -24,4 +24,12 @@ namespace NaturalEvents.Common.Models
         public Uri Link { get; set; }
         public List<NaturalEvent> Events { get; set; }
     }
+
+    
+    public enum NaturalEventsOrder
+    {
+        Date = 0,
+        Status = 1,
+        Category = 2
+    }
 }

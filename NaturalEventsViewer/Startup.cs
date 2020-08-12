@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NaturalEvents.Common.Interfaces;
+using NaturalEvents.Repostitory;
 using NaturalEventsViewer.Extensions;
 using NaturalEventsViewer.Infrastructure;
 using NaturalEventsViewer.Services;
@@ -51,6 +52,8 @@ namespace NaturalEventsViewer
             {
                 c.BaseAddress = new Uri(Configuration.GetValue<string>("EONETBaseURL"));
             }).SetHandlerLifetime(TimeSpan.FromMinutes(10));
+            services.AddLazyCache();
+            services.AddScoped<IEONETRepository, EONETRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
