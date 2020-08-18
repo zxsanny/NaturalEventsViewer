@@ -7,7 +7,7 @@ namespace NaturalEvents.Repostitory
 {
     public interface IEONETRepository
     {
-        Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventsOrder? orderBy, OrderDirection? orderDirection, DateTime? date, bool? isOpen, string category, List<string> sources, int? limit, int? daysLimit);
+        Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventFilter filter, int? limit = null, int? daysLimit = null);
         void SaveEvents(IReadOnlyList<NaturalEvent> events);
     }
 }

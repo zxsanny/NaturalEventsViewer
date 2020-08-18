@@ -1,19 +1,21 @@
 ﻿import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { NaturalEvent, NaturalEventsOrder, OrderDirection } from '@Models/NaturalEvent';
 import NaturalEventsService from '@Services/naturalEventsService';
+import { NaturalEvent, NaturalEventFilters } from '@Models/NaturalEvent';
 
 // Declare an interface of the store's state.
 export interface NaturalEventsStoreState {
     isFetching: boolean;
     collection: NaturalEvent[];
+    event: NaturalEvent;
 }
 
 // Create the slice.
 const slice = createSlice({
-    name: "naturalEvent",
+    name: "naturalEvents",
     initialState: {
         isFetching: false,
-        collection: []
+        collection: [],
+        event: null,
     } as NaturalEventsStoreState,
     reducers: {
         setFetching: (state, action: PayloadAction<boolean>) => {
@@ -21,7 +23,10 @@ const slice = createSlice({
         },
         setData: (state, action: PayloadAction<NaturalEvent[]>) => {
             state.collection = action.payload;
-        }
+        },
+        //setEvent: (state, action: PayloadAction<NaturalEvent>) => {
+        //    state.event = action.payload;
+        //}
     }
 });
 
@@ -30,11 +35,10 @@ export const { reducer } = slice;
 
 // Define action creators.
 export const actionCreators = {
-    search: (orderBy: NaturalEventsOrder = null, orderDirection: OrderDirection = null, date: Date = null, isOpen: boolean = null, category: string = null) => async (dispatch: Dispatch) => {
+    search: (filter: NaturalEventFilters = null) => async (dispatch: Dispatch) => {
         dispatch(slice.actions.setFetching(true));
 
-        const service = new NaturalEventsService();
-        const result = await service.search(orderBy, orderDirection, date, isOpen, category);
+        const result = await new NaturalEventsService().search(filter);
 
         if (!result.error) {
             dispatch(slice.actions.setData(result.value));
@@ -44,4 +48,16 @@ export const actionCreators = {
 
         return result;
     }
+
+    //openEvent: (id: string) => async (dispatch: Dispatch) => {
+    //    dispatch(slice.actions.setFetching(true));
+
+    //    const result = await new NaturalEventsService.getEvent(id);
+    //    if (!result.error) {
+    //        dispatch(slice.actions.setEvent(result.value));
+    //    }
+
+    //    dispatch(slice.actions.setFetching(false));
+    //    return result;
+    //}
 };

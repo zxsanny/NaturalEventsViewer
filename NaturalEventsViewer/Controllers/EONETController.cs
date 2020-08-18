@@ -3,6 +3,7 @@ using NaturalEvents.Common.Models;
 using NaturalEvents.Repostitory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NaturalEventsViewer.Controllers
@@ -19,12 +20,12 @@ namespace NaturalEventsViewer.Controllers
         }
 
         [HttpGet("events")]
-        public async Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventsOrder? orderBy, OrderDirection? orderDirection, DateTime? date, bool? isOpen, string category)
+        public async Task<IReadOnlyList<NaturalEvent>> Get([FromQuery]NaturalEventFilter filter)
         {
-            var res = await EONETRepository.Get(orderBy, orderDirection, date, isOpen, category, null, null, null);
+            var res = await EONETRepository.Get(filter);
             EONETRepository.SaveEvents(res);
             return res;
         }
-            
+
     }
 }

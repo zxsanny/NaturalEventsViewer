@@ -27,14 +27,30 @@ namespace NaturalEvents.Common.Models
 
     public enum OrderDirection
     {
-        ASC = 0,
-        DESC = 1
+        ASC = 1,
+        DESC = 2
     }
 
-    public enum NaturalEventsOrder
+    public enum NaturalEventOrder
     {
-        Date = 0,
-        Status = 1,
-        Category = 2
+        Date = 1,
+        Title = 2,
+        Status = 3,
+        Category = 4,
+        Source = 5
+    }
+
+    public class NaturalEventFilter
+    {
+        public DateTime? Date { get; set; }
+        public string Title { get; set; }
+        public string Source { get; set; }
+        public string Category { get; set; }
+        public bool? IsOpen { get; set; }
+        public NaturalEventOrder? OrderBy { get; set; }
+        public OrderDirection? OrderDirection { get; set; }
+
+        public override string ToString() =>
+            $"{Date}|{Title}|{Source}|{Category}|{IsOpen}|{OrderBy}|{OrderDirection}";
     }
 }

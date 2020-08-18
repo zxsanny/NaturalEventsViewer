@@ -9,7 +9,6 @@ using NaturalEvents.Common.Interfaces;
 using NaturalEvents.Repostitory;
 using NaturalEventsViewer.Extensions;
 using NaturalEventsViewer.Infrastructure;
-using NaturalEventsViewer.Services;
 using Serilog;
 using Serilog.Context;
 using System;
@@ -44,10 +43,6 @@ namespace NaturalEventsViewer
             services.AddSpaPrerenderer();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            // Add your own services here.
-            services.AddScoped<AccountService>();
-            services.AddScoped<PersonService>();
-            
             services.AddHttpClient<IEONETApi, EONETApi>("EONETAPI", c =>
             {
                 c.BaseAddress = new Uri(Configuration.GetValue<string>("EONETBaseURL"));

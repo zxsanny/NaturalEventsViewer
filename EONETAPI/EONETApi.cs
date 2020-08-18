@@ -16,7 +16,7 @@ namespace EONETAPIImplementation
             HttpClient = httpClient;
         }
 
-        public async Task<IEnumerable<NaturalEvent>> Get(List<string> sources, bool? isOpen,  int? limit,  int? daysLimit)
+        public async Task<IEnumerable<NaturalEvent>> Get(IEnumerable<string> sources, bool? isOpen,  int? limit,  int? daysLimit)
         {
             var res = await HttpClient.Get<EONETEventsResult>("events", new Dictionary<string, string>
             {

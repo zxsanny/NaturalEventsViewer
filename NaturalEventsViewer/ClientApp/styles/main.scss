@@ -47,10 +47,23 @@ label {
     }
 }
 
+.error {
+    font-size: 3rem;
+}
+
 .table {
     tr.disabled {
-        background-color: dimgray;
+        background-color: #8a8a8a;
+
+        &:nth-of-type(odd) {
+            background-color: #757575;
+        }
     }
+
+    th {
+        cursor: pointer;
+    }
+
     .source-event {
         background-color: lightgray;
         margin: 5px;

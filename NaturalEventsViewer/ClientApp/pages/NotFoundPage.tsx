@@ -12,7 +12,7 @@ const NotFoundPage: React.FC<Props> = () => {
 
         <br />
 
-        <p className="text-center" style={{ "fontSize": "3rem" }}>
+        <p className="text-center error">
             404 - Page not found
         </p>
     </div>;

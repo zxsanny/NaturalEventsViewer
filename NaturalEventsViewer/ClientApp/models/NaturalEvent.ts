@@ -1,3 +1,4 @@
+
 enum GeometryType {
     point = 0,
     polygon = 1
@@ -19,15 +20,17 @@ interface NaturalEventGeometry {
     coordinates: object; 
 }
 
-export enum NaturalEventsOrder {
-    Date = 0,
-    Status = 1,
-    Category = 2
+export enum NaturalEventsColumn {
+    Date = 1,
+    Title = 2,
+    Status = 3,
+    Category = 4,
+    Source = 5
 }
 
 export enum OrderDirection {
-    ASC = 0,
-    DESC = 1
+    ASC = 1,
+    DESC = 2,
 }
 
 export interface NaturalEvent {
@@ -40,4 +43,14 @@ export interface NaturalEvent {
     sources: NaturalEventSource[];
     geometries: NaturalEventGeometry[];
     isOpen: boolean;
+}
+
+export interface NaturalEventFilters {
+    date?: Date;
+    isOpen?: boolean;
+    category?: string;
+    title?: string;
+    source?: string;
+    orderBy?: NaturalEventsColumn;
+    orderDirection?: OrderDirection;
 }

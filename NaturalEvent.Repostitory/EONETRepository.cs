@@ -13,12 +13,14 @@ namespace NaturalEvents.Repostitory
         readonly IAppCache AppCache;
         readonly IEONETApi EONETApi;
 
-        readonly Dictionary<NaturalEventsOrder, Func<NaturalEvent, object>> OrderDict = new Dictionary<NaturalEventsOrder, Func<NaturalEvent, object>>()
-                {
-                    { NaturalEventsOrder.Date, x => x.Closed ?? x.Geometries.Min(g => g.Date)},
-                    { NaturalEventsOrder.Category, x => x.Categories.FirstOrDefault()?.Title },
-                    { NaturalEventsOrder.Status, x => x.IsOpen },
-                };
+        readonly Dictionary<NaturalEventOrder, Func<NaturalEvent, object>> OrderDict = new Dictionary<NaturalEventOrder, Func<NaturalEvent, object>>()
+        {
+            { NaturalEventOrder.Date, x => x.Closed ?? x.Geometries.Min(g => g.Date)},
+            { NaturalEventOrder.Title, x => x.Title},
+            { NaturalEventOrder.Status, x => x.IsOpen },
+            { NaturalEventOrder.Category, x => x.Categories.FirstOrDefault()?.Title },
+            { NaturalEventOrder.Source, x => x.Sources.FirstOrDefault()?.Id }
+        };
 
         public EONETRepository(IEONETApi eonetApi, IAppCache appCache)
         {
@@ -26,24 +28,28 @@ namespace NaturalEvents.Repostitory
             EONETApi = eonetApi;
         }
 
-        public async Task<IReadOnlyList<NaturalEvent>> Get(NaturalEventsOrder? orderBy, OrderDirection? orderDirection, DateTime? date, bool? isOpen, string category, List<string> sources, int? limit, int? daysLimit)
+        public async Task<IReadOnlyList<NaturalEvent>>Get(NaturalEventFilter filter, int? limit = null, int? daysLimit = null)
         {
-            var events = await AppCache.GetOrAddAsync($"{orderBy}|{date}|{isOpen}|{limit}|{daysLimit}",
-                async () => await EONETApi.Get(sources, isOpen, limit, daysLimit), TimeSpan.FromSeconds(30));
+            var events = await AppCache.GetOrAddAsync($"{filter}|{daysLimit}",
+                async () => await EONETApi.Get(new[] { filter.Source }, filter.IsOpen, limit, daysLimit), TimeSpan.FromSeconds(30));
             
-            if (date.HasValue)
+            if (filter.Date.HasValue)
             {
-                events = events.Where(e => e.Closed.HasValue && e.Closed.Value.Date == date || e.Geometries.Any(g => g.Date.Date == date));
+                events = events.Where(e => e.Closed.HasValue && e.Closed.Value.Date == filter.Date || e.Geometries.Any(g => g.Date.Date == filter.Date));
             }
-            if (!string.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty(filter.Title))
             {
-                events = events.Where(e => e.Categories.Any(c => c.Title.ToLower().Contains(category.ToLower().Trim())));
+                events = events.Where(e => e.Title.ToLower().Contains(filter.Title.ToLower().Trim()));
             }
-            if (orderBy.HasValue)
+            if (!string.IsNullOrEmpty(filter.Category))
             {
-                events = orderDirection.HasValue && orderDirection.Value == OrderDirection.DESC
-                    ? events.OrderByDescending(x => OrderDict[orderBy.Value])
-                    : events.OrderBy(x => OrderDict[orderBy.Value]);                
+                events = events.Where(e => e.Categories.Any(c => c.Title.ToLower().Contains(filter.Category.ToLower().Trim())));
+            }
+            if (filter.OrderBy.HasValue)
+            {
+                events = filter.OrderDirection.HasValue && filter.OrderDirection.Value == OrderDirection.DESC
+                    ? events.OrderByDescending(OrderDict[filter.OrderBy.Value])
+                    : events.OrderBy(OrderDict[filter.OrderBy.Value]);                
             }
             return events.ToList();
         }
@@ -54,7 +60,7 @@ namespace NaturalEvents.Repostitory
             if (naturalEvent == null)
             {
                 //since https://eonet.sci.gsfc.nasa.gov/docs/v2.1#eventsAPI doesn't provide a method to retrieve event by id, and there is no such event in a cache, then retrieve all events again
-                SaveEvents( await Get(null, null, null, null, null, null, null, null));
+                SaveEvents( await Get((NaturalEventFilter)null));
                 naturalEvent = AppCache.Get<NaturalEvent>(id);
             }
             
